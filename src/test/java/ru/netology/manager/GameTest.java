@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Player;
 import ru.netology.exceptions.NotRegisteredException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,24 +21,29 @@ public class GameTest {
         service.register(player3);
 
         boolean expected = true;
-        boolean actual = service.getPlayers().contains(player3);
+        boolean actual = service.getPlayers().containsKey("John");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldAddSeveralPlayers() {
+    public void shouldRegisterSeveralPlayers() {
 
         service.register(player1);
         service.register(player2);
         service.register(player3);
         service.register(player4);
 
-        List<Player> expected = Arrays.asList(new Player[]{player1, player2, player3, player4});
-        ArrayList<Player> actual = service.getPlayers();
+        HashMap<String, Player> expected = new HashMap<>();
+        expected.put("Jack", player1);
+        expected.put("Bill", player2);
+        expected.put("John", player3);
+        expected.put("Ann", player4);
+        HashMap<String, Player> actual = service.getPlayers();
 
         assertEquals(expected, actual);
     }
+
 
     @Test
     public void shouldWinFirstPlayer() {
@@ -54,6 +57,7 @@ public class GameTest {
         assertEquals(expected, actual);
 
     }
+
 
     @Test
     public void shouldWinSecondPlayer() {
